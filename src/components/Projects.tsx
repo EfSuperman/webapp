@@ -1,15 +1,26 @@
+import { useState, useEffect } from 'react';
 import { projectsData } from '../data/portfolioData';
-import { ExternalLink, Gamepad2 } from 'lucide-react';
+import { ExternalLink, Gamepad2, X } from 'lucide-react';
 
 const Projects = () => {
+  const [activeVideo, setActiveVideo] = useState<typeof projectsData[0] | null>(null);
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiveVideo(null);
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
+
   return (
-    <section id="projects" style={{ padding: '100px 0', borderTop: '1px solid var(--glass-border)' }}>
+    <section id="projects" style={{ padding: '100px 0', borderTop: '1px solid var(--glass-border)', position: 'relative' }}>
       <div className="container">
         <h2 style={{ fontSize: '3rem', marginBottom: '1rem', textAlign: 'center' }}>
           Featured <span className="text-gradient">Projects</span>
         </h2>
         <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '4rem', fontSize: '1.1rem' }}>
-          A selection of games and systems I've developed.
+          A selection of games and systems I've developed. Click a video to enlarge.
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}>
@@ -17,26 +28,66 @@ const Projects = () => {
             <div key={project.id} className="glass-panel glow-on-hover" style={{ 
               display: 'flex', flexDirection: 'column', overflow: 'hidden', height: '100%' 
             }}>
-              {/* Card Header (Icon/Image Placeholder) */}
-              <div style={{ 
-                height: '160px', 
-                background: 'rgba(0,0,0,0.4)', 
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                borderBottom: '1px solid var(--glass-border)',
-                position: 'relative'
-              }}>
-                 <Gamepad2 size={64} color="var(--accent-neon-blue)" opacity={0.2} />
+              {/* Card Header (Game Video or Icon) */}
+              <div 
+                onClick={() => setActiveVideo(project)}
+                style={{ 
+                  height: '220px', 
+                  background: 'rgba(0,0,0,0.6)', 
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  borderBottom: '1px solid var(--glass-border)',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  cursor: 'crosshair'
+                }}
+              >
+                {/* Invisible Top Layer so clicks don't hit the iframe directly! */}
+                <div style={{ position: 'absolute', inset: 0, zIndex: 10 }}></div>
+
+                {project.youtubeId ? (
+                   <iframe 
+                     width="100%" height="100%" 
+                     src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&controls=0`} 
+                     title={project.name} frameBorder="0" 
+                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                     style={{ pointerEvents: 'none', transform: 'scale(1.4)' }} 
+                   ></iframe>
+                 ) : project.loomId ? (
+                   <iframe 
+                     width="100%" height="100%" 
+                     src={`https://www.loom.com/embed/${project.loomId}?autoplay=1&muted=1&hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true`}
+                     frameBorder="0" allowFullScreen 
+                     style={{ pointerEvents: 'none', transform: 'scale(1.1)' }}
+                   ></iframe>
+                 ) : project.iframeUrl ? (
+                   <iframe 
+                     width="100%" height="100%" 
+                     src={project.iframeUrl} title={project.name} 
+                     frameBorder="0" allowFullScreen 
+                     style={{ pointerEvents: 'none', transform: 'scale(1.05)' }}
+                   ></iframe>
+                 ) : project.videoUrl ? (
+                   <video 
+                     src={project.videoUrl} 
+                     autoPlay muted playsInline
+                     style={{ width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }}
+                   />
+                 ) : (
+                   <Gamepad2 size={64} color="var(--accent-neon-blue)" opacity={0.2} />
+                 )}
                  <div style={{
-                   position: 'absolute', top: '16px', right: '16px',
+                   position: 'absolute', top: '16px', right: '16px', zIndex: 20,
                    background: 'rgba(0, 240, 255, 0.1)', color: 'var(--accent-neon-blue)',
-                   padding: '4px 12px', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 800
+                   padding: '4px 12px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800,
+                   backdropFilter: 'blur(4px)', border: '1px solid var(--accent-neon-blue)',
+                   boxShadow: '0 0 10px rgba(0, 240, 255, 0.4)', pointerEvents: 'none'
                  }}>
                    GAME
                  </div>
               </div>
 
               {/* Card Body */}
-              <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+              <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1, backgroundColor: 'rgba(10, 10, 15, 0.6)' }}>
                 <h3 style={{ fontSize: '1.3rem', marginBottom: '0.8rem', color: '#fff' }}>{project.name}</h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', marginBottom: '1.5rem', flex: 1 }}>
                   {project.desc}
@@ -46,13 +97,13 @@ const Projects = () => {
                   <a href={project.link} target="_blank" rel="noopener noreferrer" style={{
                     display: 'flex', alignItems: 'center', gap: '8px', 
                     color: 'var(--accent-neon-blue)', fontWeight: 600, fontSize: '0.9rem',
-                    textTransform: 'uppercase', letterSpacing: '1px'
+                    letterSpacing: '1px'
                   }}>
                     Play Now <ExternalLink size={16} />
                   </a>
                 ) : (
                   <span style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', fontStyle: 'italic' }}>
-                    * Link unavailable
+                    * Direct link unavailable
                   </span>
                 )}
               </div>
@@ -60,6 +111,74 @@ const Projects = () => {
           ))}
         </div>
       </div>
+
+      {/* Fullscreen Video Modal */}
+      {activeVideo && (
+        <div 
+          onClick={() => setActiveVideo(null)}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 999999,
+            backgroundColor: 'rgba(5, 6, 8, 0.95)', backdropFilter: 'blur(15px)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            padding: '2rem', cursor: 'pointer',
+            pointerEvents: 'auto'
+          }}
+        >
+          {/* Close Button */}
+          <button 
+            onClick={() => setActiveVideo(null)}
+            style={{ 
+              position: 'absolute', top: '2rem', right: '2rem', 
+              background: 'transparent', border: 'none', color: 'var(--text-secondary)', 
+              zIndex: 100, cursor: 'crosshair', transition: 'color 0.3s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent-neon-pink)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+          >
+            <X size={48} />
+          </button>
+          
+          {/* Video Container */}
+          <div 
+            onClick={(e) => e.stopPropagation()} // Prevent clicking video from closing the modal
+            style={{ 
+              width: '90%', maxWidth: '1200px', height: '70vh', flexShrink: 0,
+              position: 'relative', borderRadius: '12px', overflow: 'hidden', 
+              border: '2px solid var(--accent-neon-blue)', 
+              boxShadow: '0 0 50px rgba(0, 240, 255, 0.3)',
+              backgroundColor: '#000', cursor: 'auto'
+            }}
+          >
+            {activeVideo.youtubeId ? (
+               <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${activeVideo.youtubeId}?autoplay=1&controls=1&mute=0`} frameBorder="0" allowFullScreen></iframe>
+             ) : activeVideo.loomId ? (
+               <iframe width="100%" height="100%" src={`https://www.loom.com/embed/${activeVideo.loomId}?autoplay=1&muted=0`} frameBorder="0" allowFullScreen></iframe>
+             ) : activeVideo.iframeUrl ? (
+               <iframe width="100%" height="100%" src={`${activeVideo.iframeUrl}&content_only=true`} frameBorder="0" allowFullScreen></iframe>
+             ) : activeVideo.videoUrl ? (
+               <video src={activeVideo.videoUrl} autoPlay controls style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+             ) : (
+               <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                 <Gamepad2 size={100} color="var(--text-secondary)" opacity={0.3} />
+                 <p style={{ color: 'var(--text-secondary)', marginTop: '1rem' }}>No Video Media Available</p>
+               </div>
+             )}
+          </div>
+          
+          {/* Project Title at the bottom */}
+          <h2 style={{ 
+            color: 'var(--accent-neon-blue)', 
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)', 
+            marginTop: '2.5rem', 
+            textTransform: 'uppercase', 
+            letterSpacing: '4px',
+            textAlign: 'center',
+            filter: 'drop-shadow(0 0 10px rgba(0,240,255,0.4))'
+          }}>
+            {activeVideo.name}
+          </h2>
+        </div>
+      )}
     </section>
   );
 };
