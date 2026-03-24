@@ -1,5 +1,5 @@
 import { personalInfo } from '../data/portfolioData';
-import { Mail, Phone, ArrowUpRight } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 
 const Footer = () => {
   return (
