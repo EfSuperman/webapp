@@ -55,11 +55,11 @@ const Projects = () => {
                   className="project-image-container"
                   onClick={() => setActiveVideo(project)}
                   style={{ 
-                    height: isPortrait ? '100%' : '220px', 
+                    height: isPortrait ? (window.innerWidth <= 768 ? '220px' : '100%') : '220px', 
                     background: 'rgba(0,0,0,0.6)', 
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    borderBottom: isPortrait ? 'none' : '1px solid var(--glass-border)',
-                    borderRight: isPortrait ? '1px solid var(--glass-border)' : 'none',
+                    borderBottom: isPortrait && window.innerWidth > 768 ? 'none' : '1px solid var(--glass-border)',
+                    borderRight: isPortrait && window.innerWidth > 768 ? '1px solid var(--glass-border)' : 'none',
                     position: 'relative',
                     overflow: 'hidden',
                     cursor: 'crosshair',
@@ -71,7 +71,7 @@ const Projects = () => {
                   {project.youtubeId ? (
                      <iframe 
                        width="100%" height="100%" 
-                       src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&controls=0`} 
+                       src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${project.youtubeId}`} 
                        title={project.name} frameBorder="0" 
                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                        style={{ pointerEvents: 'none', transform: isPortrait ? 'scale(1.1)' : 'scale(1.4)' }} 
@@ -79,7 +79,7 @@ const Projects = () => {
                    ) : project.loomId ? (
                      <iframe 
                        width="100%" height="100%" 
-                       src={`https://www.loom.com/embed/${project.loomId}?autoplay=1&muted=1&hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true`}
+                       src={`https://www.loom.com/embed/${project.loomId}?autoplay=1&muted=1&hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true&loop=1`}
                        frameBorder="0" allowFullScreen 
                        style={{ pointerEvents: 'none', transform: isPortrait ? 'scale(1.8)' : 'scale(1.1)' }}
                      ></iframe>
@@ -93,7 +93,7 @@ const Projects = () => {
                    ) : project.videoUrl ? (
                      <video 
                        src={project.videoUrl} 
-                       autoPlay muted playsInline
+                       autoPlay muted playsInline loop
                        style={{ width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }}
                      />
                    ) : (
