@@ -14,7 +14,7 @@ export const personalInfo = {
     platforms: ["PC", "Mobile (Android/iOS)", "AR", "VR"]
   },
   contact: {
-    emails: ["mianrohan7788@gmail.com", "rohan.naveed@bigosoft.us"],
+    emails: ["rohanndeveloperr@gmail.com"],
     phone: "+92 324 4283084"
   }
 };
