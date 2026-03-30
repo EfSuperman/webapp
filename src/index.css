@@ -230,6 +230,13 @@ a:hover {
 .app-container, main {
   pointer-events: none;
 }
-a, button, .glass-panel, nav, footer {
+a, button, .glass-panel, nav, footer, #extra-skills {
   pointer-events: auto;
+}
+
+/* Extra Skills Section Responsive */
+@media (max-width: 768px) {
+  #extra-skills .container > div:last-child {
+    grid-template-columns: 1fr !important;
+  }
 }
