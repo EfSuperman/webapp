@@ -33,8 +33,8 @@ const Navbar = () => {
           
           {/* Desktop Links */}
           <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }} className="desktop-links">
-            {['About', 'Skills', 'Projects'].map(link => (
-              <a key={link} href={`#${link.toLowerCase()}`} style={{ fontWeight: 600, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }} className="glow-on-hover">
+            {['About', 'Skills', 'Projects', 'Games'].map(link => (
+              <a key={link} href={`#${link === 'Games' ? 'phaser-games' : link.toLowerCase()}`} style={{ fontWeight: 600, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }} className="glow-on-hover">
                 {link}
               </a>
             ))}
@@ -72,10 +72,10 @@ const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
-        {['About', 'Skills', 'Projects', 'Contact'].map(link => (
+        {['About', 'Skills', 'Projects', 'Games', 'Contact'].map(link => (
           <a 
             key={link} 
-            href={`#${link.toLowerCase()}`} 
+            href={`#${link === 'Games' ? 'phaser-games' : link.toLowerCase()}`} 
             onClick={() => setIsMenuOpen(false)}
             style={{ 
               fontSize: '2rem', 

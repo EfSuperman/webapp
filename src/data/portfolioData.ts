@@ -94,3 +94,30 @@ export const projectsData = [
     layoutType: 'landscape'
   }
 ];
+
+export const phaserGamesData = [
+  {
+    id: 1,
+    name: "Cyber Dash",
+    desc: "A high-speed neon runner. Dodge obstacles and survive the digital void. Use WASD or touch to jump.",
+    gamePath: "/games/index.html?game=cyberDash",
+    thumbnail: "/games/thumbnails/cyber_dash.png",
+    layoutType: 'landscape'
+  },
+  {
+    id: 2,
+    name: "Snake Game",
+    desc: "The classic arcade experience reimagined with cyberpunk visuals. Collect data shards to grow longer.",
+    gamePath: "/games/index.html?game=snakeGame",
+    thumbnail: "/games/thumbnails/snake_game.png",
+    layoutType: 'landscape'
+  },
+  {
+    id: 3,
+    name: "Circuit Fixer",
+    desc: "A logic-based puzzle game. Toggle the nodes to sync the entire circuit board.",
+    gamePath: "/games/index.html?game=circuitFixer",
+    thumbnail: "/games/thumbnails/circuit_fixer.png",
+    layoutType: 'landscape'
+  }
+];

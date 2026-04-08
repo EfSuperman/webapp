@@ -6,6 +6,7 @@ import About from './components/About';
 import Skills from './components/Skills';
 import ExtraSkills from './components/ExtraSkills';
 import Projects from './components/Projects';
+import PhaserGames from './components/PhaserGames';
 import Footer from './components/Footer';
 
 function App() {
@@ -88,6 +89,7 @@ function App() {
           <Skills />
           <ExtraSkills />
           <Projects />
+          <PhaserGames />
         </main>
 
         <Footer />
