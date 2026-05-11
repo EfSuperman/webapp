@@ -95,6 +95,34 @@ export const projectsData = [
   }
 ];
 
+export const mobileAppsData = [
+  {
+    id: 1,
+    name: "RecoverApp",
+    tagline: "AI-Powered Sobriety & Wellness Companion",
+    desc: "A cross-platform recovery app helping users track their sobriety journey with daily check-ins, mood tracking, streak management, and brain-training games. Features an AI Sobriety Companion (CBT-based voice agent), gentle wellness games, life-area goal setting, and crisis support — all wrapped in a calm, accessible UI.",
+    features: [
+      "Daily mood & craving check-ins",
+      "Streak tracking with relapse-safe logic",
+      "AI voice companion using CBT exercises",
+      "Brain-training games (Mindful Matching, Pattern Match, Quick Math)",
+      "Life-area goal setting & coping tools",
+      "Emergency crisis hotline shortcuts"
+    ],
+    techStack: ["React Native", "Expo SDK 53", "TypeScript", "Firebase", "NativeWind", "LiveKit", "Gluestack UI"],
+    platforms: ["iOS", "Android"],
+    screenshots: [
+      "/apps/recoverApp/screen6.png",
+      "/apps/recoverApp/screen1.jpg",
+      "/apps/recoverApp/screen2.jpg",
+      "/apps/recoverApp/screen3.jpg",
+      "/apps/recoverApp/screen4.jpg",
+      "/apps/recoverApp/screen5.png"
+    ],
+    accent: "#22B8B0"
+  }
+];
+
 export const phaserGamesData = [
   {
     id: 1,

@@ -6,6 +6,7 @@ import About from './components/About';
 import Skills from './components/Skills';
 import ExtraSkills from './components/ExtraSkills';
 import Projects from './components/Projects';
+import MobileApps from './components/MobileApps';
 import PhaserGames from './components/PhaserGames';
 import Footer from './components/Footer';
 
@@ -89,6 +90,7 @@ function App() {
           <Skills />
           <ExtraSkills />
           <Projects />
+          <MobileApps />
           <PhaserGames />
         </main>
 

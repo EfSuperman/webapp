@@ -33,11 +33,14 @@ const Navbar = () => {
           
           {/* Desktop Links */}
           <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }} className="desktop-links">
-            {['About', 'Skills', 'Projects', 'Games'].map(link => (
-              <a key={link} href={`#${link === 'Games' ? 'phaser-games' : link.toLowerCase()}`} style={{ fontWeight: 600, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }} className="glow-on-hover">
-                {link}
-              </a>
-            ))}
+            {['About', 'Skills', 'Projects', 'Mobile', 'Games'].map(link => {
+              const hashMap: Record<string, string> = { Games: 'phaser-games', Mobile: 'mobile-apps' };
+              return (
+                <a key={link} href={`#${hashMap[link] ?? link.toLowerCase()}`} style={{ fontWeight: 600, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }} className="glow-on-hover">
+                  {link}
+                </a>
+              );
+            })}
             <a href="#contact" className="glow-on-hover nav-pulse" style={{ 
               fontWeight: 800, 
               fontSize: '0.9rem', 
@@ -72,22 +75,25 @@ const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
-        {['About', 'Skills', 'Projects', 'Games', 'Contact'].map(link => (
-          <a 
-            key={link} 
-            href={`#${link === 'Games' ? 'phaser-games' : link.toLowerCase()}`} 
-            onClick={() => setIsMenuOpen(false)}
-            style={{ 
-              fontSize: '2rem', 
-              fontWeight: 700, 
-              color: '#fff', 
-              fontFamily: 'var(--font-display)',
-              letterSpacing: '2px'
-            }}
-          >
-            {link}
-          </a>
-        ))}
+        {['About', 'Skills', 'Projects', 'Mobile', 'Games', 'Contact'].map(link => {
+          const hashMap: Record<string, string> = { Games: 'phaser-games', Mobile: 'mobile-apps' };
+          return (
+            <a
+              key={link}
+              href={`#${hashMap[link] ?? link.toLowerCase()}`}
+              onClick={() => setIsMenuOpen(false)}
+              style={{
+                fontSize: '2rem',
+                fontWeight: 700,
+                color: '#fff',
+                fontFamily: 'var(--font-display)',
+                letterSpacing: '2px'
+              }}
+            >
+              {link}
+            </a>
+          );
+        })}
       </div>
     </>
   );
