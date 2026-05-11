@@ -447,10 +447,53 @@ const CVModal = ({ isOpen, onClose }: CVModalProps) => {
                         }
                     }
                     @media (max-width: 768px) {
-                        .cv-content { padding: 0 !important; }
-                        div[style*="gridTemplateColumns"] { grid-template-columns: 1fr !important; gap: 3rem !important; }
-                        h1 { font-size: 3rem !important; }
-                        div[style*="padding: 4rem"] { padding: 2rem !important; }
+                        .cv-modal-overlay { padding: 0.75rem !important; }
+                        .cv-content { padding: 0 !important; max-width: 100% !important; }
+                        .cv-content > div[style*="padding: 4rem"] { padding: 1.25rem !important; }
+                        .cv-content header {
+                            flex-direction: column !important;
+                            align-items: flex-start !important;
+                            padding-bottom: 1.5rem !important;
+                            margin-bottom: 1.5rem !important;
+                        }
+                        .cv-content h1 {
+                            font-size: clamp(1.8rem, 8vw, 2.4rem) !important;
+                            letter-spacing: 1px !important;
+                            line-height: 1.1 !important;
+                        }
+                        .cv-content header p {
+                            font-size: 0.9rem !important;
+                            letter-spacing: 2px !important;
+                        }
+                        .cv-content header > div > div {
+                            flex-direction: column !important;
+                            gap: 0.6rem !important;
+                            font-size: 0.85rem !important;
+                        }
+                        .cv-content header > div > div span {
+                            word-break: break-all;
+                        }
+                        .cv-content div[style*="grid"][style*="gap: 5rem"] {
+                            grid-template-columns: 1fr !important;
+                            gap: 2.5rem !important;
+                        }
+                        .cv-content footer {
+                            padding: 1rem 1.25rem !important;
+                            flex-direction: column !important;
+                            gap: 0.75rem !important;
+                            text-align: center;
+                        }
+                        .cv-content .no-print {
+                            top: 0.75rem !important;
+                            right: 0.75rem !important;
+                            gap: 0.5rem !important;
+                        }
+                        .cv-icon-btn { padding: 8px !important; }
+                        .cv-project-card { padding: 1rem !important; }
+                        .cv-project-card > div {
+                            flex-direction: column !important;
+                            gap: 4px !important;
+                        }
                     }
                 `}</style>
             </div>

@@ -207,26 +207,7 @@ a:hover {
   width: 50% !important;
 }
 
-@media (max-width: 768px) {
-  .desktop-links {
-    display: none !important;
-  }
-  
-  .mobile-menu-btn {
-    display: block !important;
-  }
-  
-  .project-card-portrait {
-    flex-direction: column !important;
-  }
-  
-  .project-card-portrait .project-image-container,
-  .project-card-portrait .project-content-container {
-    width: 100% !important;
-  }
-}
-
-/* Spline Background Interactivity Fix */
+/* Spline Background Interactivity Fix (desktop) */
 .app-container, main {
   pointer-events: none;
 }
@@ -234,9 +215,124 @@ a, button, .glass-panel, nav, footer, #extra-skills {
   pointer-events: auto;
 }
 
-/* Extra Skills Section Responsive */
+/* === Mobile (<=768px) === */
 @media (max-width: 768px) {
+  /* Touch devices: drop the crosshair cursor */
+  * {
+    cursor: auto !important;
+  }
+
+  /* Allow interaction with main content when Spline isn't there */
+  .app-container, main {
+    pointer-events: auto;
+  }
+
+  /* Lighter background grid on mobile */
+  body {
+    background-size: 28px 28px;
+    font-size: 1.05rem;
+  }
+
+  /* Kill the CRT scanline overlay on mobile — too heavy on GPU */
+  body::after {
+    display: none;
+  }
+
+  /* Default scrollbar feel on touch */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Tighter container gutters */
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  /* Heading scaling */
+  h1 { letter-spacing: 1px; }
+  h2 { letter-spacing: 1px; }
+
+  /* Navbar mobile controls */
+  .desktop-links {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: block !important;
+  }
+
+  /* Project portrait cards: stack vertically */
+  .project-card-portrait {
+    flex-direction: column !important;
+  }
+
+  .project-card-portrait .project-image-container,
+  .project-card-portrait .project-content-container {
+    width: 100% !important;
+  }
+
+  /* Sections: shrink vertical padding everywhere */
+  section {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+
+  /* Extra skills grid collapse */
   #extra-skills .container > div:last-child {
     grid-template-columns: 1fr !important;
+  }
+
+  /* Make all <img>, <video>, <iframe> behave on small screens */
+  img, video, iframe {
+    max-width: 100%;
+  }
+
+  /* Hero CTAs: full-width fluid buttons */
+  #hero a[href="#projects"],
+  #hero button {
+    width: 100% !important;
+    max-width: 320px !important;
+  }
+
+  /* Section headings: tighten the largest titles so they fit narrow viewports */
+  section > .container > h2,
+  section h2 {
+    font-size: clamp(1.9rem, 7vw, 2.4rem) !important;
+  }
+
+  /* Big section header on hero is already responsive via clamp() */
+
+  /* MobileApps grid: shrink minmax so the 360px floor doesn't blow out */
+  #mobile-apps .container > div:nth-child(3) {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* PhaserGames grid: same — single column on phones */
+  #phaser-games .container > div:nth-child(3) {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Skills & About grids collapse on phones */
+  #skills .container > div:last-child,
+  #about .container {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  /* Footer */
+  footer#contact {
+    padding: 4rem 0 2rem 0 !important;
+  }
+  footer#contact h2 {
+    font-size: clamp(2rem, 7vw, 2.4rem) !important;
+  }
+  footer#contact a.glass-panel {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem !important;
+    padding: 14px 20px !important;
+    word-break: break-all;
   }
 }

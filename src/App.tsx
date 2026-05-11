@@ -9,9 +9,12 @@ import Projects from './components/Projects';
 import MobileApps from './components/MobileApps';
 import PhaserGames from './components/PhaserGames';
 import Footer from './components/Footer';
+import { useIsMobile } from './hooks/useIsMobile';
 
 function App() {
-  const [splineLoaded, setSplineLoaded] = useState(false);
+  const isMobile = useIsMobile();
+  // On mobile, skip Spline entirely — pre-mark loaded so the loading screen doesn't hang.
+  const [splineLoaded, setSplineLoaded] = useState(isMobile);
 
   return (
     <div className="app-container" style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -44,18 +47,20 @@ function App() {
         </h2>
       </div>
       
-      {/* Background Spline 3D Scene */}
-      <div style={{
-        position: 'fixed',
-        top: 0, left: 0, right: 0, bottom: 0,
-        zIndex: 0,
-        pointerEvents: 'auto'
-      }}>
-        <Spline 
-          scene="https://prod.spline.design/2e6SaazO50UTfKlI/scene.splinecode" 
-          onLoad={() => setSplineLoaded(true)}
-        />
-      </div>
+      {/* Background Spline 3D Scene — desktop only */}
+      {!isMobile && (
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          zIndex: 0,
+          pointerEvents: 'auto'
+        }}>
+          <Spline
+            scene="https://prod.spline.design/2e6SaazO50UTfKlI/scene.splinecode"
+            onLoad={() => setSplineLoaded(true)}
+          />
+        </div>
+      )}
 
       {/* Dark Overlay to make text readable over the 3D background */}
       <div style={{

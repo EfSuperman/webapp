@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 // Last Update: 2026-03-24 16:20 - Added Grid Flow Fix & Show More Feature
 import { projectsData } from '../data/portfolioData';
 import { ExternalLink, Gamepad2, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 const Projects = () => {
   const [activeVideo, setActiveVideo] = useState<typeof projectsData[0] | null>(null);
   const [showAll, setShowAll] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -28,10 +30,10 @@ const Projects = () => {
           A selection of games and systems I've developed. Click a video to enlarge.
         </p>
 
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', 
-          gap: '2.5rem',
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(320px, 1fr))',
+          gap: isMobile ? '1.5rem' : '2.5rem',
           gridAutoFlow: 'dense' // FIX: Fills in gaps caused by span 2 items
         }}>
           {displayedProjects.map((project) => {
@@ -54,12 +56,12 @@ const Projects = () => {
                 <div 
                   className="project-image-container"
                   onClick={() => setActiveVideo(project)}
-                  style={{ 
-                    height: isPortrait ? (window.innerWidth <= 768 ? '220px' : '100%') : '220px', 
-                    background: 'rgba(0,0,0,0.6)', 
+                  style={{
+                    height: isPortrait ? (isMobile ? '220px' : '100%') : '220px',
+                    background: 'rgba(0,0,0,0.6)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    borderBottom: isPortrait && window.innerWidth > 768 ? 'none' : '1px solid var(--glass-border)',
-                    borderRight: isPortrait && window.innerWidth > 768 ? '1px solid var(--glass-border)' : 'none',
+                    borderBottom: isPortrait && !isMobile ? 'none' : '1px solid var(--glass-border)',
+                    borderRight: isPortrait && !isMobile ? '1px solid var(--glass-border)' : 'none',
                     position: 'relative',
                     overflow: 'hidden',
                     cursor: 'crosshair',
@@ -196,13 +198,17 @@ const Projects = () => {
           {/* Video Container */}
           <div 
             onClick={(e) => e.stopPropagation()} 
-            style={{ 
-              width: activeVideo.layoutType === 'portrait' ? '380px' : '90%', 
-              maxWidth: '1200px', 
-              height: activeVideo.layoutType === 'portrait' ? '80vh' : '70vh', 
+            style={{
+              width: activeVideo.layoutType === 'portrait'
+                ? (isMobile ? '92vw' : '380px')
+                : (isMobile ? '94vw' : '90%'),
+              maxWidth: '1200px',
+              height: activeVideo.layoutType === 'portrait'
+                ? (isMobile ? '70vh' : '80vh')
+                : (isMobile ? '50vh' : '70vh'),
               flexShrink: 0,
-              position: 'relative', borderRadius: '12px', overflow: 'hidden', 
-              border: '2px solid var(--accent-neon-blue)', 
+              position: 'relative', borderRadius: '12px', overflow: 'hidden',
+              border: '2px solid var(--accent-neon-blue)',
               boxShadow: '0 0 50px rgba(0, 240, 255, 0.3)',
               backgroundColor: '#000', cursor: 'auto'
             }}
