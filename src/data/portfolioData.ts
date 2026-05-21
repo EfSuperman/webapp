@@ -120,6 +120,35 @@ export const mobileAppsData = [
       "/apps/recoverApp/screen5.png"
     ],
     accent: "#22B8B0"
+  },
+  {
+    id: 2,
+    name: "110 Auction",
+    tagline: "Real Estate Marketplace & Live Auction Platform",
+    desc: "A cross-platform property app that fuses a traditional buy/rent marketplace with a real-time auction engine. One unified account lets users list, buy, rent, and bid — browse map-based listings, run or join English, sealed-bid, and reserve + buy-now auctions, settle payments through Stripe escrow, and manage everything from a single wallet. A built-in admin mode handles listing moderation, KYC review, disputes, and platform fees.",
+    features: [
+      "Map-based property search with filters & saved searches",
+      "Three auction modes: English (live timed), sealed-bid & reserve + buy-now",
+      "Real-time bidding via Supabase Realtime with push notifications",
+      "Create sale / rent / auction listings with photos, video & map pin",
+      "Watchlist, in-app buyer–seller chat & escrow payments (Stripe)",
+      "KYC verification, identity & wallet in one account",
+      "Built-in admin panel: moderation, disputes, analytics & fees"
+    ],
+    techStack: ["React Native", "Expo SDK 54", "TypeScript", "Clerk Auth", "Supabase", "Zustand", "React Native Maps", "Stripe", "Zod"],
+    platforms: ["iOS", "Android"],
+    screenshots: [
+      "/apps/110auction/screen1.png",
+      "/apps/110auction/screen2.png",
+      "/apps/110auction/screen3.png",
+      "/apps/110auction/screen4.png",
+      "/apps/110auction/screen5.png",
+      "/apps/110auction/screen6.png",
+      "/apps/110auction/screen7.png",
+      "/apps/110auction/screen8.png",
+      "/apps/110auction/screen9.png"
+    ],
+    accent: "#F5A623"
   }
 ];
 
