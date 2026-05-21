@@ -1,7 +1,11 @@
 import { personalInfo } from '../data/portfolioData';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, FileText } from 'lucide-react';
+import { useState } from 'react';
+import CVModal from './CVModal';
 
 const Hero = () => {
+  const [isCVOpen, setIsCVOpen] = useState(false);
+
   return (
     <section id="hero" style={{
       minHeight: '100vh',
@@ -34,23 +38,51 @@ const Hero = () => {
             {personalInfo.tagline} {personalInfo.bio}
           </p>
           
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem' }}>
             <a href="#projects" className="glow-on-hover" style={{
               background: 'linear-gradient(135deg, var(--accent-neon-blue), var(--accent-neon-purple))',
               color: '#000',
-              padding: '14px 32px',
+              padding: '14px 40px',
               borderRadius: '8px',
               fontWeight: 800,
               fontSize: '1.1rem',
+              width: '260px',
               display: 'flex',
               alignItems: 'center',
-              gap: '8px'
+              justifyContent: 'center',
+              gap: '12px',
+              textDecoration: 'none'
             }}>
               View Work <ChevronRight size={20} />
             </a>
+
+            <button 
+              onClick={() => setIsCVOpen(true)}
+              className="glow-on-hover" 
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid var(--accent-neon-blue)',
+                color: 'var(--accent-neon-blue)',
+                padding: '14px 40px',
+                borderRadius: '8px',
+                fontWeight: 700,
+                fontSize: '1.1rem',
+                width: '260px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '12px',
+                cursor: 'pointer',
+                transition: '0.3s'
+              }}
+            >
+              <FileText size={20} /> View CV
+            </button>
           </div>
         </div>
       </div>
+
+      <CVModal isOpen={isCVOpen} onClose={() => setIsCVOpen(false)} />
     </section>
   );
 };

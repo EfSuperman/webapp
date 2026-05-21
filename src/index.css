@@ -60,7 +60,7 @@ body::after {
   background: 
     linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
     linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  z-index: 100;
+  z-index: 3;
   background-size: 100% 4px, 6px 100%;
   pointer-events: none;
 }
@@ -146,10 +146,193 @@ a:hover {
   animation: fadeIn 0.8s ease-out forwards;
 }
 
-/* Spline Background Interactivity Fix */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.4)); }
+  50% { opacity: 0.5; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0)); }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Navbar Pulse Animation */
+@keyframes navButtonPulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 240, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
+}
+
+.nav-pulse {
+  animation: navButtonPulse 2s infinite;
+  border: 1px solid var(--accent-neon-blue) !important;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0; right: -100%;
+  width: 70%; height: 100vh;
+  background: rgba(11, 12, 16, 0.98);
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  border-left: 1px solid var(--glass-border);
+}
+
+.mobile-menu.open {
+  right: 0;
+  display: flex;
+}
+
+/* Project Card Orientations */
+.project-card-portrait {
+  flex-direction: row !important;
+}
+
+.project-card-portrait .project-image-container {
+  width: 50% !important;
+  height: 100% !important;
+}
+
+.project-card-portrait .project-content-container {
+  width: 50% !important;
+}
+
+/* Spline Background Interactivity Fix (desktop) */
 .app-container, main {
   pointer-events: none;
 }
-a, button, .glass-panel, nav, footer {
+a, button, .glass-panel, nav, footer, #extra-skills {
   pointer-events: auto;
+}
+
+/* === Mobile (<=768px) === */
+@media (max-width: 768px) {
+  /* Touch devices: drop the crosshair cursor */
+  * {
+    cursor: auto !important;
+  }
+
+  /* Allow interaction with main content when Spline isn't there */
+  .app-container, main {
+    pointer-events: auto;
+  }
+
+  /* Lighter background grid on mobile */
+  body {
+    background-size: 28px 28px;
+    font-size: 1.05rem;
+  }
+
+  /* Kill the CRT scanline overlay on mobile — too heavy on GPU */
+  body::after {
+    display: none;
+  }
+
+  /* Default scrollbar feel on touch */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Tighter container gutters */
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  /* Heading scaling */
+  h1 { letter-spacing: 1px; }
+  h2 { letter-spacing: 1px; }
+
+  /* Navbar mobile controls */
+  .desktop-links {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: block !important;
+  }
+
+  /* Project portrait cards: stack vertically */
+  .project-card-portrait {
+    flex-direction: column !important;
+  }
+
+  .project-card-portrait .project-image-container,
+  .project-card-portrait .project-content-container {
+    width: 100% !important;
+  }
+
+  /* Sections: shrink vertical padding everywhere */
+  section {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+
+  /* Extra skills grid collapse */
+  #extra-skills .container > div:last-child {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Make all <img>, <video>, <iframe> behave on small screens */
+  img, video, iframe {
+    max-width: 100%;
+  }
+
+  /* Hero CTAs: full-width fluid buttons */
+  #hero a[href="#projects"],
+  #hero button {
+    width: 100% !important;
+    max-width: 320px !important;
+  }
+
+  /* Section headings: tighten the largest titles so they fit narrow viewports */
+  section > .container > h2,
+  section h2 {
+    font-size: clamp(1.9rem, 7vw, 2.4rem) !important;
+  }
+
+  /* Big section header on hero is already responsive via clamp() */
+
+  /* MobileApps grid: shrink minmax so the 360px floor doesn't blow out */
+  #mobile-apps .container > div:nth-child(3) {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* PhaserGames grid: same — single column on phones */
+  #phaser-games .container > div:nth-child(3) {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Skills & About grids collapse on phones */
+  #skills .container > div:last-child,
+  #about .container {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  /* Footer */
+  footer#contact {
+    padding: 4rem 0 2rem 0 !important;
+  }
+  footer#contact h2 {
+    font-size: clamp(2rem, 7vw, 2.4rem) !important;
+  }
+  footer#contact a.glass-panel {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem !important;
+    padding: 14px 20px !important;
+    word-break: break-all;
+  }
 }

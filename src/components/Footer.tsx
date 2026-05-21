@@ -1,5 +1,5 @@
 import { personalInfo } from '../data/portfolioData';
-import { Mail, Phone, ArrowUpRight } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -29,7 +29,7 @@ const Footer = () => {
           <a href={`tel:${personalInfo.contact.phone.replace(/\s+/g, '')}`} className="glass-panel glow-on-hover" style={{
             padding: '16px 32px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 600, fontSize: '1.2rem', color: '#fff'
           }}>
-            <Phone size={24} color="var(--accent-neon-purple)" />
+            <Phone size={24} color="var(--accent-neon-blue)" />
             {personalInfo.contact.phone}
           </a>
 

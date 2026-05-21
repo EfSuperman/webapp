@@ -31,8 +31,8 @@ const About = () => {
                   top: '24px',
                   width: '12px', height: '12px',
                   borderRadius: '50%',
-                  background: 'var(--accent-neon-purple)',
-                  boxShadow: '0 0 10px var(--accent-neon-purple)'
+                  background: 'var(--accent-neon-blue)',
+                  boxShadow: '0 0 10px var(--accent-neon-blue)'
                 }}></div>
                 {/* Timeline Line (Only on first item to simplify) */}
                 {idx === 0 && (
